@@ -1,0 +1,42 @@
+.uk-description-list>li>a>dt {
+  color: #333;
+  font-size: .875rem;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+dt {
+  flex-grow: 1;
+  position: relative;
+}
+
+.uk-description-list>li>a>dt:after {
+  position: absolute;
+  content: '';
+  bottom: -10px;
+  right: 0;
+  width: 0;
+  height: 0;
+  /* By using an em scale, the arrows will size with the font */
+  width: 0.4em;
+  height: 0.4em;
+  border-right: 0.2em solid;
+  border-top: 0.2em solid;
+  border-color: #1e87f0;
+  transform: rotate(45deg);
+  margin-right: 0.5em;
+}
+
+.uk-description-list>li>a>dt:hover:after {
+  border-color: #0f6ecd;
+}
+
+.uk-description-list>li:nth-child(n+2) {
+  margin-top: 20px;
+}
+
+.uk-description-list-divider>li:nth-child(n+2) {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e5e5;
+}
