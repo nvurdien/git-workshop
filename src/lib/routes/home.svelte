@@ -18,6 +18,7 @@
         fb.addPost(post);
         formSubmitted = true;
     }
+    
     function closeMessage(){
         formSubmitted = false;
     }
@@ -32,7 +33,7 @@
         {#if formSubmitted}
             <div class="uk-notification" style="display: block">
                 <div class="uk-notification-message uk-notification-message-success" role="alert" style="opacity: 1; margin-top: 0px;"> 
-                    <a href="#" on:click{closeMessage} class="uk-notification-close uk-icon uk-close uk-modal-close" data-uk-close=""><svg width="14" height="14" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg"><line fill="none" stroke="#000" stroke-width="1.1" x1="1" y1="1" x2="13" y2="13"></line><line fill="none" stroke="#000" stroke-width="1.1" x1="13" y1="1" x2="1" y2="13"></line></svg></a> 
+                    <a href="#" on:click={closeMessage} class="uk-notification-close uk-icon uk-close uk-modal-close" data-uk-close=""><svg width="14" height="14" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg"><line fill="none" stroke="#000" stroke-width="1.1" x1="1" y1="1" x2="13" y2="13"></line><line fill="none" stroke="#000" stroke-width="1.1" x1="13" y1="1" x2="1" y2="13"></line></svg></a> 
                     <div>Successfully added!</div> 
                 </div>
             </div>

@@ -6,8 +6,8 @@ import type { _Post } from "../interfaces";
 
 export default class FirebaseHelper {
     private firebaseConfig = {
-        authDomain: "workshop-7493b.firebaseapp.com",
-        projectId: "workshop-7493b",
+        authDomain: "<PROJECT_ID>.firebaseapp.com",
+        projectId: "<PROJECT_ID>",
     };
     
     // Initialize Firebase
