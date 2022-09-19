@@ -17,6 +17,6 @@
 <Router url="{url}">
   <div>
    <Route path="/"><Home /></Route>
-   <Route path="post" component="{Blog}" />
+   <Route path="post/:id" component="{Blog}" />
   </div>
 </Router>

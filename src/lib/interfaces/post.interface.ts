@@ -1,7 +1,9 @@
+import type { Timestamp } from "firebase/firestore";
+
 export default interface _Post {
-    id:number;
+    id:string;
     title:string;
     description:string;
     content:string;
-    date:Date;
+    date:Timestamp;
 }
