@@ -7,6 +7,7 @@
     let posts = fb.posts;
     let formSubmitted = false;
 
+    // Add post to firebase
     function handleSubmit(form) {
         const formData = new FormData(form.target);
         const post = {};
@@ -19,6 +20,7 @@
         formSubmitted = true;
     }
     
+    // Close form modal
     function closeMessage(){
         formSubmitted = false;
     }

@@ -1,48 +1,117 @@
-# Svelte + TS + Vite
+# GIT Hackathon Workshop Code Guide
+## Libraries Used
+### CSS Libraries
+  * Uikit (https://getuikit.com/docs/introduction) - Lots of useful components, lightweight and a better gridding system than material design
+### JS Libraries
+  * Svelte
+  * Firebase
 
-This template should help get you started developing with Svelte and TypeScript in Vite.
+## File structure
+* src
+  * **lib** - each lib folder has index files to bulk export
+    * **classes** - reusable library classes that hold commonly needed information
+      * **firebaseHelper.ts** - accesses firestore data and adds to firestore
+    * **components** - generally for reusable components that limit copy/pasting the same code 
+      * **descriptionList.svelte** - outputs list of posts entry descriptions
+      * **descriptionListItem.svelte** - outputs single post
+    * **interfaces** - data types
+      * **descriptionListItem.interface.ts** - descriptionListItem interface 
+      * **post.interface.ts** - post interface
+    * **routes** - different pages
+      * **blog.svelte** - blog post page structure
+      * **home.svelte** - home page structure
+* **app.svelte** - page with routes information and global styling
 
-## Recommended IDE Setup
-
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
-
-## Need an official Svelte framework?
-
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
-
-## Technical considerations
-
-**Why use this over SvelteKit?**
-
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
-  `vite dev` and `vite build` wouldn't work in a SvelteKit environment, for example.
-
-This template contains as little as possible to get started with Vite + TypeScript + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
-
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
-
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
-
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
-
-**Why include `.vscode/extensions.json`?**
-
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
-
-**Why enable `allowJs` in the TS template?**
-
-While `allowJs: false` would indeed prevent the use of `.js` files in the project, it does not prevent the use of JavaScript syntax in `.svelte` files. In addition, it would force `checkJs: false`, bringing the worst of both worlds: not being able to guarantee the entire codebase is TypeScript, and also having worse typechecking for the existing JavaScript. In addition, there are valid use cases in which a mixed codebase may be relevant.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```ts
-// store.ts
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
+# Starting a svelte app (Optional)
+1. Install npm https://nodejs.org/en/download/
+2. Run the following:
+```sh
+npm -g install vite
+sudo !! # if first didnt work
+npm init vite
 ```
+
+3. Complete prompts from the last command to create your svelte app!
+
+# Starting the workshop
+1. Clone the repo and install packages with the workshop code with the following commands:
+```sh
+git clone https://github.com/nvurdien/git-workshop.git
+cd git-workshop
+npm install
+```
+
+2. Similar to react if used before, there is no clear structure so I added a folder structure section in this guide to show how I structured the code for this workshop
+3. Hopefully this can be used as a template for your projects but I'll walk through some code written in this workshop and you can refer to the libraries used and file structure section for reference
+
+# Firebase setup
+1. Head to the firebase console to start adding firebase to your project https://firebase.corp.google.com/?pli=1
+2. Start by clicking "Add project" with the + sign or you may use an existing project
+![Firebase project list](/images/project_list.png)
+
+3. Then in the menu click "All products" and look for "Cloud Firestore"
+4. By default, firestore disables all reads and writes so go under "Rules" and change read write to "true"
+![Firestore with rules set to true to allow read/write](/images/firestore.png)
+
+5. Then that should be most of what you need in order to start using/adding to your database. <b style="color:red">Please switch it back to false at the end of hackathon to prevent others from using your database.</b>
+6. In the following file:
+
+`git-workshop/src/lib/classes/firebaseHelper.ts`
+```typescript
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { collection, addDoc, getDocs } from "firebase/firestore"; 
+import { writable } from "svelte/store";
+import type { _Post } from "../interfaces";
+
+export default class FirebaseHelper {
+    // Config information to use specific firebase project
+    private firebaseConfig = {
+        authDomain: "<PROJECT_ID>.firebaseapp.com",
+        projectId: "<PROJECT_ID>",
+    };
+    
+    // Initialize Firebase
+    private app = initializeApp(this.firebaseConfig);
+    
+    // Initialize Cloud Firestore and get a reference to the service
+    private db = getFirestore(this.app);
+
+    // Use writable to add state which will help reload page on retrieval of posts
+    posts = writable({}, );
+
+    constructor() {
+        const posts = {}
+        // Get all docs and loop through the snapshots to update posts dictionary
+        getDocs(collection(this.db, "post")).then(docSnap => {
+            docSnap.forEach(doc => {
+                posts[doc.id] = {id: doc.id, ...doc.data()};
+                this.posts.set(posts);
+            });
+        });
+    }
+
+    addPost(post) {
+        // Add a new document with a new generated id.
+        return addDoc(collection(this.db, "post"), post).then(docRef => docRef.id);
+    }
+}
+```
+and
+
+`git-workshop/.firebaserc`
+```json
+{
+  "projects": {
+    "default": "<PROJECT-ID>"
+  }
+}
+```
+
+Update the fields that show `<PROJECT_ID>` to the project id shown in your project settings page click on the "gear" icon to get there
+![Project settings page on the general tab](/images/settings.png)
+
+7. Then you can run the project with `npm run dev`
+8. Go to the assigned localhost url shown on the screen once completed building
+9. Add a few blog posts and refresh the page or look on your firestore database page to see the results!
+10. Now I'll discuss some information on the FirebaseHelper class and you can again use the file structure section for reference
