@@ -1,4 +1,5 @@
 # GIT Hackathon Workshop Code Guide
+Doc for workshop: https://docs.google.com/document/d/1bLA4k8b2edYvhiF6cDnpJ_F0O-wCoM_Gs3OKWa088uw/edit#heading=h.sy0bmshcit5
 ## Libraries Used
 ### CSS Libraries
   * Uikit (https://getuikit.com/docs/introduction) - Lots of useful components, lightweight and a better gridding system than material design
