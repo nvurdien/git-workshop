@@ -1,4 +1,5 @@
 <script>
+
     import { DescriptionList } from '../components';
     import { FirebaseHelper } from '../classes';
     import { Timestamp } from "firebase/firestore";
@@ -18,6 +19,7 @@
         post.date = Timestamp.now();
         fb.addPost(post);
         formSubmitted = true;
+        UIkit.modal(document.getElementById('add-post')).hide();
     }
     
     // Close form modal
@@ -63,7 +65,7 @@
                 </div>
             </div>
             <p class="uk-text-right">
-                <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                <button class="uk-button uk-button-default uk-modal-close" type="button" on:click={closeMessage}>Cancel</button>
                 <button class="uk-button uk-button-primary" type="submit">Save</button>
             </p>        
         </form>
