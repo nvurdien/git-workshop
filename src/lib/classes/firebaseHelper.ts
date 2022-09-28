@@ -21,6 +21,10 @@ export default class FirebaseHelper {
     posts = writable({}, );
 
     constructor() {
+        this.getPosts();
+    }
+
+    getPosts() {
         const posts = {}
         // Get all docs and loop through the snapshots to update posts dictionary
         getDocs(collection(this.db, "post")).then(docSnap => {
@@ -33,6 +37,7 @@ export default class FirebaseHelper {
 
     addPost(post) {
         // Add a new document with a new generated id.
-        return addDoc(collection(this.db, "post"), post).then(docRef => docRef.id);
+        addDoc(collection(this.db, "post"), post).then(docRef => docRef.id);
+        this.getPosts();
     }
 }
