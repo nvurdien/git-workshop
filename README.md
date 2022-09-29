@@ -42,7 +42,7 @@ cd git-workshop
 npm install
 ```
 If you run into errors running `npm install` please head over to https://nodejs.org/en/download/ and follow instructions on downloading Node / NPM. 
-For this workshop I will be using ![VS Code](https://code.visualstudio.com/) to run through the code.
+For this workshop I will be using [VS Code](https://code.visualstudio.com/) to run through the code.
 
 2. Similar to react if used before, there is no clear structure so I added a folder structure section in this guide to show how I structured the code for this workshop
 3. Hopefully this can be used as a template for your projects but I'll walk through some code written in this workshop and you can refer to the libraries used and file structure section for reference
