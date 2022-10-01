@@ -45,6 +45,7 @@ export default class FirebaseHelper {
             const posts = this.p;
             posts[postId] = {id: postId, ...post};
             this.posts.set(posts);
+            this.p = posts;
         });
     }
 }
