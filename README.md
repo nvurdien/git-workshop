@@ -48,7 +48,7 @@ For this workshop I will be using [VS Code](https://code.visualstudio.com/) to r
 3. Hopefully this can be used as a template for your projects but I'll walk through some code written in this workshop and you can refer to the libraries used and file structure section for reference
 
 # Firebase setup
-1. Head to the firebase console to start adding firebase to your project https://firebase.corp.google.com/?pli=1
+1. Head to the firebase console to start adding firebase to your project https://console.firebase.google.com/
 2. Start by clicking "Add project" with the + sign or you may use an existing project
 ![Firebase project list](/images/project_list.png)
 
