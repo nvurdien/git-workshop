@@ -118,3 +118,11 @@ Update the fields that show `<PROJECT_ID>` to the project id shown in your proje
 8. Go to the assigned localhost url shown on the screen once completed building
 9. Add a few blog posts and refresh the page or look on your firestore database page to see the results!
 10. Now I'll discuss some information on the FirebaseHelper class and you can again use the file structure section for reference
+
+# Hosting on Firebase
+1. Run the following command in your terminal to install/update firebase:
+```
+sudo npm install -g firebase-tools
+npm run build
+firebase deploy --only hosting
+```
