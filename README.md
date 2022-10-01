@@ -123,6 +123,10 @@ Update the fields that show `<PROJECT_ID>` to the project id shown in your proje
 1. Run the following command in your terminal to install/update firebase:
 ```
 sudo npm install -g firebase-tools
+firebase login
+```
+2. Run through the commands in the firebase login prompts and then run the following commands:
+```
 npm run build
 firebase deploy --only hosting
 ```
